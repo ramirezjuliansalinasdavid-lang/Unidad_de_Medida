@@ -1,0 +1,19 @@
+# En la raíz del proyecto, crea .gitignore
+echo "# Dependencias
+node_modules/
+.env
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de editor
+.vscode/
+.idea/
+*.swo
+*.swp
+
+# Logs
+*.log
+npm-debug.log*
+" > .gitignore

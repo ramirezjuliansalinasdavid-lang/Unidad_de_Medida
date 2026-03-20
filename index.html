@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNIDAD DE MEDIDA UNIVERSAL</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>
+                <span>🔄</span>
+                Convertidor UNIVERSAL
+            </h1>
+            <button class="dark-mode-toggle" onclick="toggleDarkMode()" id="darkModeToggle">
+                🌙
+            </button>
+        </div>
+
+        <div class="category-selector">
+            <label>📊 Categoría:</label>
+            <select id="category" onchange="updateUnits()">
+                <option value="length">📏 Longitud</option>
+                <option value="mass">⚖️ Masa</option>
+                <option value="temperature">🌡️ Temperatura</option>
+                <option value="time">⏰ Tiempo</option>
+                <option value="volume">🧪 Volumen</option>
+                <option value="speed">🚀 Velocidad</option>
+                <option value="area">📐 Área</option>
+                <option value="energy">⚡ Energía</option>
+                <option value="pressure">🎯 Presión</option>
+            </select>
+        </div>
+
+        <div class="conversion-container">
+            <div class="input-group">
+                <label>🔢 Valor:</label>
+                <div class="input-wrapper">
+                    <input type="text" id="inputValue" value="1" oninput="validateInput(this); convert()"
+                        placeholder="Ingresa un valor">
+                    <span class="unit-icon" id="fromUnitIcon">📏</span>
+                </div>
+                <div class="unit-select">
+                    <select id="fromUnit" onchange="convert()"></select>
+                </div>
+            </div>
+            <button class="swap-button" onclick="swapUnits()" title="Intercambiar unidades">
+                ⇅
+            </button>
+
+            <div class="input-group">
+                <label>🎯 Resultado:</label>
+                <div class="input-wrapper">
+                    <input type="text" id="outputValue" readonly placeholder="Resultado" value="1">
+                    <span class="unit-icon" id="toUnitIcon">📏</span>
+                </div>
+                <div class="unit-select">
+                    <select id="toUnit" onchange="convert()"></select>
+                </div>
+            </div>
+        </div>
+
+        <div class="result-section">
+            <div class="result-label">Resultado de la conversion</div>
+            <div class="result-value" id="resultDisplay">1</div>
+            <div class="result-unit" id="resultUnitDisplay"></div>
+        </div>
+
+        <div class="additional-info" id="additionalInfo"></div>
+
+        <div class="footer">
+            <p>⚡ Conversión en tiempo real • Todas las unidades • Hecho con el ❤️</p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
