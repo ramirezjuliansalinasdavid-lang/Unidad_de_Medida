@@ -563,3 +563,121 @@ window.validateInput = validateInput;
 window.convert = convert;
 window.swapUnits = swapUnits;
 window.toggleDarkMode = toggleDarkMode;
+
+// ===== FUNCIONES ADICIONALES =====
+
+/**
+ * Compartir conversión
+ */
+function shareConversion() {
+    const value = document.getElementById('inputValue').value;
+    const fromUnit = document.getElementById('fromUnit');
+    const toUnit = document.getElementById('toUnit');
+    const result = document.getElementById('outputValue').value;
+    
+    const fromUnitName = units[currentCategory].units[fromUnit.value].name;
+    const toUnitName = units[currentCategory].units[toUnit.value].name;
+    
+    const shareText = `${value} ${fromUnitName} = ${result} ${toUnitName} (Convertido con UNIDAD DE MEDIDA UNIVERSAL)`;
+    
+    if (navigator.share) {
+        navigator.share({
+            title: 'Conversión de unidades',
+            text: shareText,
+            url: window.location.href
+        }).catch(() => {
+            copyToClipboard(shareText);
+        });
+    } else {
+        copyToClipboard(shareText);
+    }
+}
+
+/**
+ * Copiar al portapapeles
+ */
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        showNotification('¡Copiado al portapapeles!', 'success');
+    }).catch(() => {
+        showNotification('No se pudo copiar', 'error');
+    });
+}
+
+/**
+ * Mostrar notificación
+ */
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.textContent = message;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.animation = 'slideOutRight 0.3s ease';
+        setTimeout(() => notification.remove(), 300);
+    }, 3000);
+}
+
+/**
+ * Limpiar historial
+ */
+function clearHistory() {
+    conversionHistory = [];
+    updateHistoryDisplay();
+    showNotification('Historial limpiado', 'success');
+}
+
+/**
+ * Actualizar badges de unidades
+ */
+function updateUnitBadges() {
+    const fromSelect = document.getElementById('fromUnit');
+    const toSelect = document.getElementById('toUnit');
+    const fromBadge = document.getElementById('fromUnitBadge');
+    const toBadge = document.getElementById('toUnitBadge');
+    
+    if (fromBadge && fromSelect.value && units[currentCategory]) {
+        fromBadge.textContent = units[currentCategory].units[fromSelect.value].name;
+    }
+    if (toBadge && toSelect.value && units[currentCategory]) {
+        toBadge.textContent = units[currentCategory].units[toSelect.value].name;
+    }
+}
+
+// Sobrescribir updateUnits para incluir badges
+const originalUpdateUnits = window.updateUnits;
+window.updateUnits = function() {
+    originalUpdateUnits();
+    updateUnitBadges();
+    updateStats();
+};
+
+// Sobrescribir convert para actualizar badges
+const originalConvert = window.convert;
+window.convert = function() {
+    originalConvert();
+    updateUnitBadges();
+};
+
+/**
+ * Actualizar estadísticas
+ */
+function updateStats() {
+    const categoryCount = Object.keys(units).length;
+    let unitCount = 0;
+    for (const cat in units) {
+        unitCount += Object.keys(units[cat].units).length;
+    }
+    
+    const categoryCountSpan = document.getElementById('categoryCount');
+    const unitCountSpan = document.getElementById('unitCount');
+    if (categoryCountSpan) categoryCountSpan.textContent = categoryCount;
+    if (unitCountSpan) unitCountSpan.textContent = unitCount;
+}
+
+// Inicializar estadísticas
+document.addEventListener('DOMContentLoaded', () => {
+    updateStats();
+});
