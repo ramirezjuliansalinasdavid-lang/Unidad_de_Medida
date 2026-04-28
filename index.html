@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Convertidor Universal - Unidades Esenciales</title>
+    <title>Convertidor Esencial - Unidades Prácticas</title>
 
     <!-- Favicon con emoji -->
     <link rel="icon"
@@ -41,14 +41,10 @@
             <div class="select-wrapper">
                 <select id="category" onchange="updateUnits()">
                     <option value="length">📏 Longitud</option>
-                    <option value="mass">⚖️ Masa</option>
-                    <option value="temperature">🌡️ Temperatura</option>
-                    <option value="time">⏰ Tiempo</option>
-                    <option value="volume">🧪 Volumen</option>
-                    <option value="speed">🚀 Velocidad</option>
                     <option value="area">📐 Área</option>
-                    <option value="energy">⚡ Energía</option>
-                    <option value="pressure">🎯 Presión</option>
+                    <option value="volume">🧪 Volumen</option>
+                    <option value="mass">⚖️ Masa</option>
+                    <option value="speed">🚀 Velocidad</option>
                 </select>
                 <span class="select-arrow">▼</span>
             </div>
@@ -83,7 +79,7 @@
                         <span class="input-badge" id="toUnitBadge">Kilómetro</span>
                     </div>
                     <div class="input-wrapper">
-                        <input type="text" id="outputValue" readonly placeholder="Resultado" value="1">
+                        <input type="text" id="outputValue" readonly placeholder="Resultado" value="0.001">
                         <span class="unit-icon" id="toUnitIcon">📏</span>
                     </div>
                     <div class="unit-select">
@@ -95,8 +91,8 @@
             <div class="result-section">
                 <div class="result-label">Resultado de la conversión</div>
                 <div class="result-value-wrapper">
-                    <div class="result-value" id="resultDisplay">1</div>
-                    <div class="result-unit" id="resultUnitDisplay"></div>
+                    <div class="result-value" id="resultDisplay">0.001</div>
+                    <div class="result-unit" id="resultUnitDisplay">Kilómetro</div>
                 </div>
             </div>
         </div>
@@ -114,9 +110,9 @@
         </div>
 
         <div class="footer">
-            <p>⚡ Conversión en tiempo real • <span id="categoryCount">9</span> categorías • <span
+            <p>⚡ Conversión en tiempo real • <span id="categoryCount">5</span> categorías • <span
                     id="unitCount">0</span> unidades</p>
-            <p class="footer-note">Hecho con <span class="heart">❤️</span> para conversiones precisas</p>
+            <p class="footer-note">Hecho con <span class="heart">❤️</span> para conversiones esenciales</p>
         </div>
     </div>
     <script src="script.js"></script>
